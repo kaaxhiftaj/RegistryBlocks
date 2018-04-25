@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Registry Blocks</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="loginText">Help us to make the world a better palce.
+    Simply register your item and documents and benifits everyday from our fraud
+    preventing blockchain solutions.</string>
+
+    <string name="registerItemText">By registering your item and documents
+        you can start enjoying benifits from our innovative fraud preventing blockchain solutions.</string>
 </resources>

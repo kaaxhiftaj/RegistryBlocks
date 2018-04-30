@@ -27,6 +27,7 @@ import com.example.adamnoor.registryblocks.R;
 import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,30 +35,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Login extends Fragment implements View.OnClickListener {
+public class Registration extends Fragment implements View.OnClickListener {
 
-    TextView tvNoAccount;
+    TextView tvForgot;
     EditText etEmail,etPass;
-    Button btnLogin;
     String strEmail,strPass,strUserId,strMessage;
+    Button btnSignUp;
+    Fragment fragment;
     android.support.v7.app.AlertDialog alertDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_registration, container, false);
 
         sharedPreferences = getActivity().getSharedPreferences("abc", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        tvNoAccount=(TextView)view.findViewById(R.id.tvNoAccount);
-        etEmail=(EditText)view.findViewById(R.id.etEmailIn);
-        etPass=(EditText)view.findViewById(R.id.etPassIn);
-        btnLogin=(Button)view.findViewById(R.id.btnLogin);
-        
-        tvNoAccount.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
+        tvForgot=(TextView)view.findViewById(R.id.tvForgot);
+        etEmail=(EditText)view.findViewById(R.id.etEmailReg);
+        etPass=(EditText)view.findViewById(R.id.etPassReg);
+        btnSignUp=(Button)view.findViewById(R.id.btnSignUp);
+
+        tvForgot.setOnClickListener(this);
+        btnSignUp.setOnClickListener(this);
         return view;
     }
 
@@ -66,12 +69,13 @@ public class Login extends Fragment implements View.OnClickListener {
         int id=v.getId();
         switch (id)
         {
-            case R.id.tvNoAccount:
-                Fragment fragment=new ForgotPass();
-                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Login").commit();
+            case R.id.tvForgot:
+                fragment=new Login();
+                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Registrations").commit();
                 break;
-            case R.id.btnLogin:
+            case R.id.btnSignUp:
                 check();
+                break;
         }
     }
 
@@ -83,23 +87,23 @@ public class Login extends Fragment implements View.OnClickListener {
             etEmail.setError("Required");
         }
         else
-        if (strPass.equals(""))
-        {
-            etPass.setError("Required");
-        }
-        else
-        {
-            if (alertDialog==null)
+            if (strPass.equals(""))
             {
-                alertDialog= AlertsUtils.createProgressDialog(getActivity());
-                alertDialog.show();
+                etPass.setError("Required");
             }
-            apicall();
-        }
+            else
+            {
+                if (alertDialog==null)
+                {
+                    alertDialog= AlertsUtils.createProgressDialog(getActivity());
+                    alertDialog.show();
+                }
+                apicall();
+            }
     }
 
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/login", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/register", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)

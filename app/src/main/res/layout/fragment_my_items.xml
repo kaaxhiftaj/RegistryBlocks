@@ -12,13 +12,13 @@
         android:orientation="vertical">
         <SearchView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40sp"
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
             android:queryHint="Search"
             android:autofillHints="Search"
-            android:layout_marginTop="10sp"
-            android:layout_marginBottom="10sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
             ></SearchView>
     </LinearLayout>
     <GridView

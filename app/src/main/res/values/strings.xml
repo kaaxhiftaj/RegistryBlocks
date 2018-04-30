@@ -14,4 +14,8 @@
 
     <string name="registerItemText">By registering your item and documents
         you can start enjoying benifits from our innovative fraud preventing blockchain solutions.</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_Myitems">MyItems</string>
+    <string name="title_market">Marketplace</string>
+    <string name="title_documents">My Documents</string>
 </resources>

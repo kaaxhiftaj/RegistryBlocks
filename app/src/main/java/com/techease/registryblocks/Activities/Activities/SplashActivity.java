@@ -1,4 +1,4 @@
-package com.techease.registryblocks.Activities;
+package com.techease.registryblocks.Activities.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

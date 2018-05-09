@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorDim">#fcfff5</color>
     <color name="colorDark">#91aa9d</color>
-    <color name="colorBlue">#129FDD</color>
+    <color name="colorBlue">#00bcd5</color>
+    <color name="searchColor">#142b35</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

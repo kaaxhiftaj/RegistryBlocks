@@ -72,7 +72,11 @@ public class EnterCode extends Fragment {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
                 Log.d("zmaReg",response);
-                Fragment fragment;
+                Bundle bundle=new Bundle();
+                bundle.putString("code",strCode);
+                Fragment fragment=new ResetPass();
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
 
             }
         }, new Response.ErrorListener() {

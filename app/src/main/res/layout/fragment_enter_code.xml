@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/backimg"
     tools:context="com.techease.registryblocks.Activities.Fragments.EnterCode">
 
    <ImageView
@@ -48,7 +48,7 @@
             android:layout_weight="0.7"
             android:layout_height="40sp"
             android:hint="Required"
-            android:inputType="textPassword"
+            android:inputType="number"
             android:textColor="#BDBDBD"
             android:background="@null"
             android:textColorHint="@color/colorDark"

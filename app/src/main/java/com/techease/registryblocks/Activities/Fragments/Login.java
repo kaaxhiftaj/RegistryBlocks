@@ -1,11 +1,14 @@
 package com.techease.registryblocks.Activities.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +46,7 @@ public class Login extends Fragment implements View.OnClickListener {
     android.support.v7.app.AlertDialog alertDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class Login extends Fragment implements View.OnClickListener {
 
         sharedPreferences = getActivity().getSharedPreferences("abc", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         tvNoAccount=(TextView)view.findViewById(R.id.tvNoAccount);
         etEmail=(EditText)view.findViewById(R.id.etEmailIn);
         etPass=(EditText)view.findViewById(R.id.etPassIn);
@@ -110,10 +116,11 @@ public class Login extends Fragment implements View.OnClickListener {
                     JSONObject object=jsonObject.getJSONObject("user");
                     strMessage=jsonObject.getString("message");
                     strUserId=object.getString("id");
+                    editor.putString("userId",strUserId).commit();
                     editor.putString("token","login").commit();
-                    Toast.makeText(getActivity(), strMessage, Toast.LENGTH_SHORT).show();
                     if (strMessage.contains("Already"))
                     {
+                       AlertsUtils.showErrorDialog(getActivity(),strMessage);
                         etEmail.setText("");
                         etPass.setText("");
                     }
@@ -134,6 +141,7 @@ public class Login extends Fragment implements View.OnClickListener {
             public void onErrorResponse(VolleyError error) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
+                AlertsUtils.showErrorDialog(getActivity(),error.getMessage().toString());
                 Log.d("zma error", String.valueOf(error.getCause()));
             }
         }) {

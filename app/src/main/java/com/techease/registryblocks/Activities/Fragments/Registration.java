@@ -1,11 +1,13 @@
 package com.techease.registryblocks.Activities.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +56,8 @@ public class Registration extends Fragment implements View.OnClickListener {
 
         sharedPreferences = getActivity().getSharedPreferences("abc", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        tvForgot=(TextView)view.findViewById(R.id.tvForgot);
+
+        tvForgot=(TextView)view.findViewById(R.id.tvAlreadyHaveAnAccount);
         etEmail=(EditText)view.findViewById(R.id.etEmailReg);
         etPass=(EditText)view.findViewById(R.id.etPassReg);
         btnSignUp=(Button)view.findViewById(R.id.btnSignUp);
@@ -63,13 +66,12 @@ public class Registration extends Fragment implements View.OnClickListener {
         btnSignUp.setOnClickListener(this);
         return view;
     }
-
     @Override
     public void onClick(View v) {
         int id=v.getId();
         switch (id)
         {
-            case R.id.tvForgot:
+            case R.id.tvAlreadyHaveAnAccount:
                 fragment=new Login();
                 getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Registrations").commit();
                 break;
@@ -78,7 +80,6 @@ public class Registration extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
     private void check() {
         strEmail=etEmail.getText().toString();
         strPass=etPass.getText().toString();
@@ -118,6 +119,7 @@ public class Registration extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), strMessage, Toast.LENGTH_SHORT).show();
                     if (strMessage.contains("Already"))
                     {
+                        AlertsUtils.showErrorDialog(getActivity(),strMessage);
                         etEmail.setText("");
                         etPass.setText("");
                     }
@@ -126,18 +128,16 @@ public class Registration extends Fragment implements View.OnClickListener {
                         startActivity(new Intent(getActivity(), BottomNavigationActivity.class));
                         getActivity().finish();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
+                AlertsUtils.showErrorDialog(getActivity(),error.getMessage().toString());
                 Log.d("zma error", String.valueOf(error.getCause()));
             }
         }) {

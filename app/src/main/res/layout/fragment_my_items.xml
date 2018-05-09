@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#fff"
     tools:context="com.techease.registryblocks.Activities.Fragments.MyItems">
 
     <LinearLayout
@@ -10,16 +12,25 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="vertical">
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="40sp"
-            android:layout_marginLeft="20sp"
-            android:layout_marginRight="20sp"
-            android:queryHint="Search"
-            android:autofillHints="Search"
-            android:layout_marginTop="5sp"
-            android:layout_marginBottom="5sp"
-            ></SearchView>
+      <EditText
+          android:id="@+id/sv"
+          android:layout_width="match_parent"
+          android:layout_height="40sp"
+          android:layout_marginLeft="20sp"
+          android:layout_marginRight="20sp"
+          android:background="@color/searchColor"
+          android:hint="Search"
+          android:cursorVisible="false"
+          android:layout_marginTop="5sp"
+          android:layout_marginBottom="5sp"
+          android:textColorHint="@color/colorDim"
+          android:drawableLeft="@drawable/search"
+          android:paddingLeft="10sp"
+          android:drawablePadding="10sp"
+          android:textColor="@color/colorDim"
+
+          />
+
     </LinearLayout>
     <GridView
         android:id="@+id/gridViewMyItems"

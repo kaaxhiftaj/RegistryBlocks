@@ -3,39 +3,50 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/ll"
     android:orientation="horizontal"
     >
     <ImageView
         android:id="@+id/ivProductImage"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="5sp"
         android:background="@color/colorDark"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
+        android:layout_marginLeft="5sp"
         android:orientation="vertical">
+
         <TextView
+            android:id="@+id/tvProductTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvProductTitle"
+            android:maxLines="1"
             android:text="TV"
             android:textColor="#000"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/tvProductModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Model"
-            android:textStyle="bold"
+            android:maxLines="1"
             android:textColor="#000"/>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="ID"-->
+            <!--android:textColor="#000"-->
+            <!--android:id="@+id/tvProductId"/>-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ID"
-            android:textColor="#000"
-            android:id="@+id/tvProductId"/>
+            android:text="Date"
+            android:maxLines="1"
+            android:id="@+id/tvProductDate"
+            android:textColor="#000"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -2,15 +2,25 @@ package com.techease.registryblocks.Activities.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,7 +32,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.adamnoor.registryblocks.R;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
+import com.techease.registryblocks.Activities.Activities.ScannerActivity;
 import com.techease.registryblocks.Activities.Adapters.AllProductsAdapter;
 import com.techease.registryblocks.Activities.Controller.AllProductsModel;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
@@ -33,23 +45,33 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MyItems extends Fragment {
 
+    EditText searchView;
     GridView gridView;
     ArrayList<AllProductsModel> allProductsModelArrayList;
     AllProductsAdapter allProductsAdapter;
     RequestQueue requestQueue;
     android.support.v7.app.AlertDialog alertDialog;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_my_items, container, false);
+        final View view= inflater.inflate(R.layout.fragment_my_items, container, false);
 
+        sharedPreferences = getActivity().getSharedPreferences("abc", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         setCustomActionBar();
+
         gridView=(GridView) view.findViewById(R.id.gridViewMyItems);
+        searchView=(EditText) view.findViewById(R.id.sv);
+       // searchView.setFocusable(false);
+        searchEducationList();
         requestQueue = Volley.newRequestQueue(getActivity());
         allProductsModelArrayList=new ArrayList<>();
         if (alertDialog==null)
@@ -58,12 +80,48 @@ public class MyItems extends Fragment {
             alertDialog.show();
         }
         apicall();
-
         return view;
     }
 
+    public void searchEducationList() {
+
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + searchView.getText());
+
+                query = query.toString().toLowerCase();
+                ArrayList<AllProductsModel> newData = new ArrayList<>();
+                for (int j = 0; j < allProductsModelArrayList.size(); j++) {
+                    final String test2 = allProductsModelArrayList.get(j).getProductName().toLowerCase();
+                    if (test2.startsWith(String.valueOf(query))) {
+                        newData.add(allProductsModelArrayList.get(j));
+                    }
+                }
+                allProductsAdapter = new AllProductsAdapter(getActivity(), newData);
+                gridView.setAdapter(allProductsAdapter);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setFocusable(true);
+            }
+        });
+    }
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://registryblocks.com/app/rest/allproducts", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/allproducts", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)
@@ -79,8 +137,9 @@ public class MyItems extends Fragment {
                         model.setProductId(object.getString("product_id"));
                         model.setProductName(object.getString("title"));
                         model.setProductModel(object.getString("model"));
+                        model.setProductImage(object.getString("image"));
+                        model.setProductDate(object.getString("date"));
                         allProductsModelArrayList.add(model);
-
                     }
                     allProductsAdapter=new AllProductsAdapter(getActivity(),allProductsModelArrayList);
                     gridView.setAdapter(allProductsAdapter);
@@ -124,6 +183,22 @@ public class MyItems extends Fragment {
             android.support.v7.app.ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             LayoutInflater mInflater = LayoutInflater.from(getActivity());
             View mCustomView = mInflater.inflate(R.layout.myitems_actionbar, null);
+            ImageView imageView=(ImageView)mCustomView.findViewById(R.id.ivAdd);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   startActivity(new Intent(getActivity(), ScannerActivity.class));
+                }
+            });
+            ImageView ivProfile=(ImageView)mCustomView.findViewById(R.id.ivProfile);
+            ivProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Fragment fragment=new Login();
+//                    editor.putString("token","").commit();
+//                    getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                }
+            });
             mActionBar.setCustomView(mCustomView);
             mActionBar.setDisplayShowCustomEnabled(true);
     }

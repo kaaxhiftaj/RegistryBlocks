@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/backimg"
     tools:context="com.techease.registryblocks.Activities.Fragments.Login">
 
     <ImageView
@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/shinelogo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,10 +26,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20sp"
-        android:layout_marginRight="20sp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="161dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="159dp"
         android:gravity="center"
         android:text="@string/loginText"
         android:textColor="@color/colorDim" />
@@ -75,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="1sp"
             android:background="@color/colorDark"
-            android:layout_marginLeft="20sp"/>
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,13 +105,12 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1sp"
-            android:layout_marginLeft="20sp"
             android:background="@color/colorDark"/>
         <TextView
             android:id="@+id/tvNoAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account or forgot it?"
+            android:text="Forgot it?"
             android:textColor="@color/colorBlue"
             android:textSize="17sp"
             android:layout_gravity="center"
@@ -126,6 +124,7 @@
             android:background="@drawable/round_btn"
             android:layout_marginTop="20sp"
             android:text="Login"
+            android:textSize="17sp"
             android:textColor="#fff"
             android:layout_marginBottom="65sp"/>
     </LinearLayout>

@@ -1,10 +1,12 @@
 package com.techease.registryblocks.Activities.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +78,14 @@ public class ForgotPass extends Fragment {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
                 Log.d("zmaReg",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String abc=jsonObject.getString("message");
+                    AlertsUtils.showErrorDialog(getActivity(),abc);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 Fragment fragment=new EnterCode();
                 getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Forgot").commit();
 

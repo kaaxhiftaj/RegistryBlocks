@@ -2,6 +2,8 @@ package com.techease.registryblocks.Activities.Utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adamnoor.registryblocks.R;
 
@@ -24,6 +27,9 @@ public class AlertsUtils {
      *
      * @param activity
      */
+
+
+
     public static void showErrorDialog(Activity activity, String message) {
 
 
@@ -45,6 +51,10 @@ public class AlertsUtils {
         alertDialog.show();
     }
 
+    public static void Toast(Context context,String messageToShow)
+    {
+        Toast.makeText(context, messageToShow, Toast.LENGTH_SHORT).show();
+    }
 
     public static AlertDialog createProgressDialog(Activity activity) {
 

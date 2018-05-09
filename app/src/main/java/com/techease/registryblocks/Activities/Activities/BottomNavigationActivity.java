@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.adamnoor.registryblocks.R;
@@ -26,7 +28,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_items:
                 fragment=new MyItems();
-                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
                     return true;
                 case R.id.navigation_market:
 

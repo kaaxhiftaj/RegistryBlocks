@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/scannerActivityContainer"
+    android:background="@color/colorPrimary"
+    tools:context="com.techease.registryblocks.Activities.Activities.ScannerActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:text="Register an Item"
+                android:textColor="@color/colorDim"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:text="@string/registerItemText"
+                android:textColor="@color/colorDim" />
+
+            <Button
+                android:id="@+id/btnScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25sp"
+                android:layout_marginLeft="25sp"
+                android:background="@drawable/round_btn"
+                android:text="Scan and Register by nfc/RFID"
+                android:textColor="#fff" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:layout_marginBottom="55sp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manual Registration"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorDim"
+                    android:textSize="25sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:background="@color/colorDim"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginLeft="10sp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0sp"
+                        android:layout_weight="0.3"
+                        android:layout_height="wrap_content"
+                        android:text="Serial No."
+                        android:textSize="17sp"
+                        android:layout_marginLeft="20sp"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        />
+                    <EditText
+                        android:id="@+id/etSerialNo"
+                        android:layout_width="0sp"
+                        android:layout_weight="0.7"
+                        android:layout_height="40sp"
+                        android:hint="Required"
+                        android:textColor="#fff"
+                        android:paddingLeft="10sp"
+                        android:textColorHint="@color/colorDark"
+                        android:background="@null"
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginLeft="10sp"
+                    android:background="@color/colorDark"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0sp"
+                        android:layout_weight="0.3"
+                        android:layout_height="wrap_content"
+                        android:text="Model No."
+                        android:textSize="17sp"
+                        android:layout_marginLeft="20sp"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        />
+                    <EditText
+                        android:id="@+id/etModelNo"
+                        android:layout_width="0sp"
+                        android:layout_weight="0.7"
+                        android:textColor="#fff"
+                        android:layout_height="40sp"
+                        android:hint="Required"
+                        android:paddingLeft="10sp"
+                        android:textColorHint="@color/colorDark"
+                        android:background="@null"
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginLeft="10sp"
+                    android:background="@color/colorDark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="How to find your serial or model No?"
+                    android:textColor="@color/colorBlue"
+                    android:layout_gravity="center"
+                    android:textSize="17sp"
+                    android:layout_marginTop="10sp"
+                    />
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_roundbtn"
+                    android:text="Register"
+                    android:textColor="@color/colorBlue"
+                    android:layout_marginLeft="25sp"
+                    android:layout_marginRight="25sp"
+                    android:layout_marginTop="20sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

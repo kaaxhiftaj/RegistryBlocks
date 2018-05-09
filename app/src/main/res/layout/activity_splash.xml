@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="105dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/shinelogo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,5 +35,14 @@
         android:textSize="17sp"
         android:text="Item and Document Registration"
         android:textColor="@color/colorBlue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:text="Prototype version 0.1"
+        android:textColor="#fff" />
 
 </RelativeLayout>

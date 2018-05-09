@@ -7,10 +7,11 @@
 >
 
     <ImageView
+        android:id="@+id/ivProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20sp"
+        android:layout_marginLeft="10sp"
         android:layout_centerVertical="true"
         android:layout_marginTop="8sp"
         android:src="@drawable/user" />
@@ -22,19 +23,19 @@
         android:layout_gravity="center"
         android:layout_centerVertical="true"
         android:text="My Blocks"
-        android:textStyle="bold"
         android:textColor="#fff"
         android:textSize="20sp" />
 
     <ImageView
+        android:id="@+id/ivAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/add"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp" />
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/add" />
 
 </RelativeLayout>

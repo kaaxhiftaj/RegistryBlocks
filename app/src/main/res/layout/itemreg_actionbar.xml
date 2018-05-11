@@ -25,7 +25,7 @@
         android:text="Back"
         android:layout_gravity="center"
         android:textColor="@color/colorBlue"
-        android:textSize="17sp" />
+        android:textSize="20sp" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.adamnoor.registryblocks"
+        applicationId "com.techease.registryblocks"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -55,4 +55,7 @@ dependencies {
 
     //NFC
     compile 'me.dm7.barcodescanner:zxing:1.9'
+
+    //Material searchbar
+    implementation 'com.github.mancj:MaterialSearchBar:0.7.6'
     }

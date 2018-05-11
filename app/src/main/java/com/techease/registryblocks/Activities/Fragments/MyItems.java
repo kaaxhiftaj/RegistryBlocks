@@ -1,5 +1,6 @@
 package com.techease.registryblocks.Activities.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -31,9 +34,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.adamnoor.registryblocks.R;
+import com.techease.registryblocks.R;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
+import com.techease.registryblocks.Activities.Activities.FullScreenActivity;
 import com.techease.registryblocks.Activities.Activities.ScannerActivity;
 import com.techease.registryblocks.Activities.Adapters.AllProductsAdapter;
 import com.techease.registryblocks.Activities.Controller.AllProductsModel;
@@ -50,7 +54,7 @@ import java.util.Map;
 
 public class MyItems extends Fragment {
 
-    EditText searchView;
+    private EditText searchView;
     GridView gridView;
     ArrayList<AllProductsModel> allProductsModelArrayList;
     AllProductsAdapter allProductsAdapter;
@@ -70,8 +74,13 @@ public class MyItems extends Fragment {
 
         gridView=(GridView) view.findViewById(R.id.gridViewMyItems);
         searchView=(EditText) view.findViewById(R.id.sv);
-       // searchView.setFocusable(false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         searchEducationList();
+
         requestQueue = Volley.newRequestQueue(getActivity());
         allProductsModelArrayList=new ArrayList<>();
         if (alertDialog==null)
@@ -82,6 +91,7 @@ public class MyItems extends Fragment {
         apicall();
         return view;
     }
+
 
     public void searchEducationList() {
 
@@ -113,12 +123,6 @@ public class MyItems extends Fragment {
         });
 
 
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchView.setFocusable(true);
-            }
-        });
     }
     private void apicall() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/allproducts", new Response.Listener<String>() {
@@ -135,7 +139,7 @@ public class MyItems extends Fragment {
                         JSONObject object=jsonArray.getJSONObject(i);
                         AllProductsModel model=new AllProductsModel();
                         model.setProductId(object.getString("product_id"));
-                        model.setProductName(object.getString("title"));
+                        model.setProductName(object.getString("category"));
                         model.setProductModel(object.getString("model"));
                         model.setProductImage(object.getString("image"));
                         model.setProductDate(object.getString("date"));
@@ -194,9 +198,10 @@ public class MyItems extends Fragment {
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Fragment fragment=new Login();
-//                    editor.putString("token","").commit();
-//                    getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+
+                    editor.putString("token","").commit();
+                    startActivity(new Intent(getActivity(), FullScreenActivity.class));
+                    getActivity().finish();
                 }
             });
             mActionBar.setCustomView(mCustomView);

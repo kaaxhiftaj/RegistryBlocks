@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.adamnoor.registryblocks.R;
+import com.techease.registryblocks.R;
+
 
 public class SplashActivity extends AppCompatActivity {
 

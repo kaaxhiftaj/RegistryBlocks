@@ -18,9 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.adamnoor.registryblocks.R;
+
 import com.techease.registryblocks.Activities.Controller.AllProductsModel;
 import com.techease.registryblocks.Activities.Fragments.ProductDetails;
+import com.techease.registryblocks.R;
 
 import java.util.ArrayList;
 

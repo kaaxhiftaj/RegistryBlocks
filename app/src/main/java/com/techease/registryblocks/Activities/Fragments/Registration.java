@@ -25,9 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.adamnoor.registryblocks.R;
 import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
+import com.techease.registryblocks.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

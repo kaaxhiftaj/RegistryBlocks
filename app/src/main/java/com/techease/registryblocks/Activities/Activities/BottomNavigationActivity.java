@@ -11,9 +11,11 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.adamnoor.registryblocks.R;
+
 import com.techease.registryblocks.Activities.Fragments.MyItems;
+import com.techease.registryblocks.R;
 
 public class BottomNavigationActivity extends AppCompatActivity {
 
@@ -32,10 +34,11 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_market:
 
-                    return true;
+                    Toast.makeText(BottomNavigationActivity.this, "Sorry, this feature is not available in the prototype app", Toast.LENGTH_SHORT).show();
+                    return false;
                 case R.id.navigation_document:
-
-                    return true;
+                    Toast.makeText(BottomNavigationActivity.this, "Sorry, this feature is not available in the prototype app", Toast.LENGTH_SHORT).show();
+                    return false;
             }
             return false;
         }

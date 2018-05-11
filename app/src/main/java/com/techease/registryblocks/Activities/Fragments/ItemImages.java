@@ -27,12 +27,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
-import com.example.adamnoor.registryblocks.R;
 import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
 import com.techease.registryblocks.Activities.Activities.HTTPMultiPartEntity;
 import com.techease.registryblocks.Activities.Activities.ScannerActivity;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
+import com.techease.registryblocks.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -123,13 +122,13 @@ public class ItemImages extends Fragment implements View.OnClickListener {
                 CallALertDilaog();
                 break;
             case R.id.btnUpload:
-                if (alertDialog==null)
-                {
-                    alertDialog= AlertsUtils.createProgressDialog(getActivity());
-                    alertDialog.show();
-                }
                 if (selectedPath1!=null && selectedPath2!=null && selectedPath3!=null)
                 {
+                    if (alertDialog==null)
+                    {
+                        alertDialog= AlertsUtils.createProgressDialog(getActivity());
+                        alertDialog.show();
+                    }
                     ItemImages.UploadFileToServer uploadFileToServer=new UploadFileToServer();
                     uploadFileToServer.execute();
                 }
@@ -198,7 +197,6 @@ public class ItemImages extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri selectedImageUri = data.getData();
         if (a>0)
         {
             iv1Plus.setVisibility(View.GONE);
@@ -363,8 +361,6 @@ public class ItemImages extends Fragment implements View.OnClickListener {
                 entity.addPart("model", new StringBody(ModelNo));
                 entity.addPart("userid", new StringBody(userId));
 
-                if (alertDialog!=null)
-                    alertDialog.dismiss();
 
                 httppost.setEntity(entity);
                 // Making server call
@@ -391,6 +387,8 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if (alertDialog!=null)
+                alertDialog.dismiss();
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("Uploaded Successfully!");
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.adamnoor.registryblocks.R;
+import com.techease.registryblocks.R;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

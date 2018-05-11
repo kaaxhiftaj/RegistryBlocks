@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.adamnoor.registryblocks.R;
+import com.techease.registryblocks.R;
 
 
 public class AlertsUtils {

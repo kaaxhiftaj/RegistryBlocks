@@ -81,27 +81,6 @@
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="Brand"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:id="@+id/tvProductBrand"
-                    android:layout_width="0sp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
-                    android:text="JBL"
-                    android:textColor="@color/colorDark"
-                    android:textSize="15sp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0sp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
                     android:text="Model Number"
                     android:textColor="#fff"
                     android:textStyle="bold"
@@ -144,16 +123,16 @@
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="Color"
+                    android:text="Label1"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
-                    android:id="@+id/tvColor"
+                    android:id="@+id/tvLabel1"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="Black"
+                    android:text="label1"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -165,16 +144,16 @@
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="Watts"
+                    android:text="Label2"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
-                    android:id="@+id/tvWatts"
+                    android:id="@+id/tvLabel2"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="16"
+                    android:text="label2"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -186,16 +165,16 @@
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="Battery Capacity"
+                    android:text="Label3"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
-                    android:id="@+id/tvBattery"
+                    android:id="@+id/tvLabel3"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="3000mAH"
+                    android:text="label3"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -207,16 +186,142 @@
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="Size"
+                    android:text="Label4"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
-                    android:id="@+id/tvSize"
+                    android:id="@+id/tvLabel4"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
-                    android:text="20"
+                    android:text="label4"
+                    android:textColor="@color/colorDark"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="Label5"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvLabel5"
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="label5"
+                    android:textColor="@color/colorDark"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="Label6"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvLabel6"
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="label6"
+                    android:textColor="@color/colorDark"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="Label7"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvLabel7"
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="label7"
+                    android:textColor="@color/colorDark"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="Label8"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvLabel8"
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="label8"
+                    android:textColor="@color/colorDark"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="Label9"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvLabel9"
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="label9"
+                    android:textColor="@color/colorDark"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="Label10"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/tvLabel10"
+                    android:layout_width="0sp"
+                    android:layout_weight="0.5"
+                    android:layout_height="wrap_content"
+                    android:text="label10"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>

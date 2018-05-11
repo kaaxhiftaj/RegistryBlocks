@@ -23,14 +23,34 @@
           android:cursorVisible="false"
           android:layout_marginTop="5sp"
           android:layout_marginBottom="5sp"
-          android:textColorHint="@color/colorDim"
+          android:textColorHint="@color/colorDark"
           android:drawableLeft="@drawable/search"
           android:paddingLeft="10sp"
           android:drawablePadding="10sp"
           android:textColor="@color/colorDim"
 
           />
-
+        <!--<com.mancj.materialsearchbar.MaterialSearchBar-->
+        <!--style="@style/MaterialSearchBarLight"-->
+        <!--app:mt_speechMode="false"-->
+        <!--app:mt_hint="Search"-->
+        <!--app:mt_maxSuggestionsCount="10"-->
+        <!--android:layout_marginLeft="20sp"-->
+        <!--android:layout_marginRight="20sp"-->
+        <!--android:layout_marginTop="5sp"-->
+        <!--app:mt_searchBarColor="@color/searchColor"-->
+        <!--android:layout_marginBottom="5sp"-->
+        <!--app:mt_textColor="@color/colorDim"-->
+        <!--app:mt_hintColor="@color/colorDim"-->
+        <!--app:mt_searchIconUseTint="true"-->
+        <!--app:mt_searchIconTint="@color/colorDim"-->
+        <!--app:mt_searchIconDrawable="@drawable/search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+            <!--app:mt_clearIconTint="@color/colorDim"-->
+            <!--app:mt_backIconTint="@color/colorDim"-->
+            <!--app:mt_highlightedTextColor="@color/colorDim"-->
+        <!--android:id="@+id/sv" />-->
     </LinearLayout>
     <GridView
         android:id="@+id/gridViewMyItems"

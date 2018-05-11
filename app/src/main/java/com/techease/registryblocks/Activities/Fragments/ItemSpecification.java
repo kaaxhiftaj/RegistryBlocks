@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.adamnoor.registryblocks.R;
+import com.techease.registryblocks.R;
 
 
 public class ItemSpecification extends Fragment {

@@ -1,6 +1,7 @@
 package com.techease.registryblocks.Activities.Activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,11 +33,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.adamnoor.registryblocks.R;
+
 import com.google.zxing.Result;
 import com.techease.registryblocks.Activities.Fragments.ItemImages;
 import com.techease.registryblocks.Activities.Fragments.MyItems;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
+import com.techease.registryblocks.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,22 +79,31 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         etSerialNo=(EditText)findViewById(R.id.etSerialNo);
         btnRegister=(Button)findViewById(R.id.btnRegister);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        hideKeyboard(this);
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setContentView(scannerView);
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
-                {
-                    if (checkPermission())
-                    {
-                        //  Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        requestPermissions();
-                    }
-                }
+                Fragment fragment=new ItemImages();
+                getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
+//                setContentView(scannerView);
+//                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
+//                {
+//                    if (checkPermission())
+//                    {
+//                        //  Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
+//                    }
+//                    else
+//                    {
+//                        requestPermissions();
+//                    }
+//                }
             }
         });
 
@@ -102,6 +115,16 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         });
 
 
+    }
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(ScannerActivity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void check() {
@@ -300,7 +323,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             @Override
             public void onClick(View v) {
                 Fragment fragment=new MyItems();
-                getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).commit();
             }
         });
         mActionBar.setCustomView(mCustomView);

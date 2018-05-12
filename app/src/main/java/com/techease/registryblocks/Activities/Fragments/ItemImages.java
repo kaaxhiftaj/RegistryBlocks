@@ -69,7 +69,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     android.support.v7.app.AlertDialog alertDialog;
-    String userId,ModelNo,SerialNo;
+    String userId,ModelNo,SerialNo,checkImage;
     int a=0,b=0,c=0;
     final CharSequence[] items = { "Take Photo", "Choose from Library","Cancel" };
     @Override
@@ -174,6 +174,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
                 }
                 else if (items[which].equals("Cancel"))
                 {
+
                     dialog.dismiss();
                 }
 
@@ -197,20 +198,6 @@ public class ItemImages extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (a>0)
-        {
-            iv1Plus.setVisibility(View.GONE);
-        }
-        else
-            if (b>0)
-            {
-                iv2Plus.setVisibility(View.GONE);
-            }
-            else
-                if (c>0)
-                {
-                    iv3Plus.setVisibility(View.GONE);
-                }
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
             onCaptureImageResult(data);
@@ -220,6 +207,9 @@ public class ItemImages extends Fragment implements View.OnClickListener {
             onSelectFromGalleryResult(data);
 
         }
+
+
+
     }
 
     private void onCaptureImageResult(Intent data) {
@@ -240,25 +230,53 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if (a>0)
         {
             selectedPath1=BitMapToString(thumbnail);
-            iv1.setImageBitmap(thumbnail);
-            a=0;
+            if (selectedPath1!=null)
+            {
+                iv1.setImageBitmap(thumbnail);
+                a=0;
+                iv1Plus.setVisibility(View.GONE);
+            }
+            else
+            {
+                iv1Plus.setVisibility(View.VISIBLE);
+            }
+
         }
         else
             if (b>0)
             {
                 selectedPath2=BitMapToString(thumbnail);
-                iv2.setImageBitmap(thumbnail);
-                b=0;
+                if (selectedPath2!=null)
+                {
+                    iv2.setImageBitmap(thumbnail);
+                    b=0;
+                    iv2Plus.setVisibility(View.GONE);
+                }
+                else
+                {
+                    iv2Plus.setVisibility(View.VISIBLE);
+                }
+
             }
             else
             if (c>0)
             {
                 selectedPath3=BitMapToString(thumbnail);
-                iv3.setImageBitmap(thumbnail);
-                c=0;
+                if (selectedPath3!=null)
+                {
+                    iv3.setImageBitmap(thumbnail);
+                    c=0;
+                    iv3Plus.setVisibility(View.GONE);
+                }
+                else
+                {
+                    iv3Plus.setVisibility(View.VISIBLE);
+                }
+
             }
 
     }
@@ -271,18 +289,26 @@ public class ItemImages extends Fragment implements View.OnClickListener {
     }
 
     private void onSelectFromGalleryResult(Intent data) {
+        if (data!=null)
+        {
+            uri=data.getData();
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    if (uri!=null)
+                    {
+                        String picpath=getPath(uri);
+                        destination=new File(picpath);
+                    }
 
-        uri=data.getData();
-        if (data != null) {
-            try {
-                bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                String picpath=getPath(uri);
-                destination=new File(picpath);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getActivity(), e.getCause().toString(), Toast.LENGTH_SHORT).show();
-            }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getActivity(), e.getCause().toString(), Toast.LENGTH_SHORT).show();
+                }
+        }
+
+
         }
     }
 
@@ -296,22 +322,49 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         if (a>0)
         {
             selectedPath1=filePath;
-            iv1.setImageBitmap(BitmapFactory.decodeFile(filePath));
-            a=0;
+            if (selectedPath1!=null)
+            {
+                iv1.setImageBitmap(BitmapFactory.decodeFile(filePath));
+                a=0;
+                iv1Plus.setVisibility(View.GONE);
+            }
+            else
+            {
+                iv1Plus.setVisibility(View.VISIBLE);
+            }
+
         }
         else
         if (b>0)
         {
             selectedPath2=filePath;
-            iv2.setImageBitmap(BitmapFactory.decodeFile(filePath));
-            b=0;
+            if (selectedPath2!=null)
+            {
+                iv2.setImageBitmap(BitmapFactory.decodeFile(filePath));
+                b=0;
+                iv2Plus.setVisibility(View.GONE);
+            }
+              else
+            {
+                iv2Plus.setVisibility(View.VISIBLE);
+            }
+
         }
         else
         if (c>0)
         {
             selectedPath3=filePath;
-            iv3.setImageBitmap(BitmapFactory.decodeFile(filePath));
-            c=0;
+            if (selectedPath3!=null)
+            {
+                iv3.setImageBitmap(BitmapFactory.decodeFile(filePath));
+                c=0;
+                iv3Plus.setVisibility(View.GONE);
+            }
+            else
+            {
+                iv3Plus.setVisibility(View.VISIBLE);
+            }
+
         }
 
         return cursor.getString(column_index);
@@ -341,7 +394,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
             file3 = new File(selectedPath3);
             String responseString;
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://registryblocks.com/app/rest/uploadPicture");
+            HttpPost httppost = new HttpPost("http://openspot.qa/registeryblocks/uploadPicture");
             try {
                 HTTPMultiPartEntity entity = new HTTPMultiPartEntity(
                         new HTTPMultiPartEntity.ProgressListener() {

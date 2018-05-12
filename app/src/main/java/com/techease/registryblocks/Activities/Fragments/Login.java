@@ -105,7 +105,7 @@ public class Login extends Fragment implements View.OnClickListener {
     }
 
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/login", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://openspot.qa/registeryblocks/rest/register", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)

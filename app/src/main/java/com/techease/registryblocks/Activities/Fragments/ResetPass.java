@@ -82,7 +82,7 @@ public class ResetPass extends Fragment {
     }
 
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/resetpassword", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://openspot.qa/registeryblocks/rest/resetpassword", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)

@@ -41,8 +41,11 @@ public class ProductDetails extends Fragment {
 
     ImageView ivImage;
     TextView tvTitle,tvModel,tvSerial,tvRegistration,tvLast_taransfered,insurance,tvLabel10,tvLabel1,tvLabel2,
-    tvLabel3,tvLabel4,tvLabel5,tvLabel6,tvLabel7,tvLabel8,tvLabel9;
-    String Id,strLabel10,strLabel1,strLabel2,strLabel3,strLabel4,strLabel5,strLabel6,strLabel7,strLabel8,strLabel9;
+    tvLabel3,tvLabel4,tvLabel5,tvLabel6,tvLabel7,tvLabel8,tvLabel9,tvLabel1Title,tvLabel2Title,tvLabel3Title,
+            tvLabel4Title,tvLabel5Title,tvLabel6Title,tvLabel7Title,tvLabel8Title,tvLabel9Title,tvLabel10Title;
+    String Id,strLabel10,strLabel1,strLabel2,strLabel3,strLabel4,strLabel5,strLabel6,strLabel7,strLabel8,strLabel9,
+    strLabel1Title,strLabel2Title,strLabel3Title,strLabel4Title,strLabel5Title,strLabel6Title,strLabel7Title,
+            strLabel8Title,strLabel9Title,strLabel10Title;
     android.support.v7.app.AlertDialog alertDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +69,16 @@ public class ProductDetails extends Fragment {
         tvLabel8=(TextView)view.findViewById(R.id.tvLabel8);
         tvLabel9=(TextView)view.findViewById(R.id.tvLabel9);
         tvLabel10=(TextView)view.findViewById(R.id.tvLabel10);
+        tvLabel1Title=(TextView)view.findViewById(R.id.tvLabel1Title);
+        tvLabel2Title=(TextView)view.findViewById(R.id.tvLabel2Title);
+        tvLabel3Title=(TextView)view.findViewById(R.id.tvLabel3Title);
+        tvLabel4Title=(TextView)view.findViewById(R.id.tvLabel4Title);
+        tvLabel5Title=(TextView)view.findViewById(R.id.tvLabel5Title);
+        tvLabel6Title=(TextView)view.findViewById(R.id.tvLabel6Title);
+        tvLabel7Title=(TextView)view.findViewById(R.id.tvLabel7Title);
+        tvLabel8Title=(TextView)view.findViewById(R.id.tvLabel8Title);
+        tvLabel9Title=(TextView)view.findViewById(R.id.tvLabel9Title);
+        tvLabel10Title=(TextView)view.findViewById(R.id.tvLabel10Title);
         tvRegistration=(TextView)view.findViewById(R.id.tvRegDate);
         tvLast_taransfered=(TextView)view.findViewById(R.id.tvLastTrans);
         insurance=(TextView)view.findViewById(R.id.tvInsurance);
@@ -77,62 +90,14 @@ public class ProductDetails extends Fragment {
         }
         apiCall();
 
-        if (strLabel1!=null)
-        {
-            tvLabel1.setText(strLabel1);
-        }
-        else
-            if (strLabel2!=null)
-            {
-                tvLabel2.setText(strLabel2);
-            }
-            else
-            if (strLabel3!=null)
-            {
-                tvLabel3.setText(strLabel3);
-            }
-            else
-            if (strLabel4!=null)
-            {
-                tvLabel4.setText(strLabel4);
-            }
-            else
-            if (strLabel5!=null)
-            {
-                tvLabel5.setText(strLabel5);
-            }
-            else
-            if (strLabel6!=null)
-            {
-                tvLabel6.setText(strLabel6);
-            }
-            else
-            if (strLabel7!=null)
-            {
-                tvLabel7.setText(strLabel7);
-            }
-            else
-            if (strLabel8!=null)
-            {
-                tvLabel8.setText(strLabel8);
-            }
-            else
-            if (strLabel9!=null)
-            {
-                tvLabel9.setText(strLabel9);
-            }
-            else
-            if (strLabel10!=null)
-            {
-                tvLabel2.setText(strLabel10);
-            }
+
         Id=getArguments().getString("id");
 
         return view;
     }
 
     private void apiCall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/productDetails", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://openspot.qa/registeryblocks/rest/productDetails", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)
@@ -145,28 +110,147 @@ public class ProductDetails extends Fragment {
                     tvTitle.setText(object.getString("category"));
                     tvModel.setText(object.getString("model"));
                     tvSerial.setText(object.getString("serial"));
-                    JSONObject getJsonObject=object.getJSONObject("data");
-                    Iterator iterator = getJsonObject.keys();
-                    while(iterator.hasNext()){
-                        String key = (String)iterator.next();
-                        JSONObject issue = getJsonObject.getJSONObject(key);
-
-                        //  get id from  issue
-                        String _pubKey = issue.optString("label1");
-
-                        Toast.makeText(getActivity(), _pubKey, Toast.LENGTH_SHORT).show();
+                    JSONObject label1JSONObj=object.getJSONObject("label1");
+                    Iterator<String> iterator = label1JSONObj.keys();
+                    while (iterator.hasNext()) {
+                        String key = iterator.next();
+                        Log.i("TAG","key:"+key +"--Value::"+label1JSONObj.optString(key));
+                        strLabel1Title=key;
+                        strLabel1=label1JSONObj.optString(key);
                     }
-                    strLabel1=(object.getString("label1"));
-                    strLabel2=(object.getString("label2"));
-                    strLabel3=(object.getString("label3"));
-                    strLabel4=(object.getString("label4"));
-                    strLabel5=(object.getString("label5"));
-                    strLabel6=(object.getString("label6"));
-                    strLabel7=(object.getString("label7"));
-                    strLabel8=(object.getString("label8"));
-                    strLabel9=(object.getString("label9"));
-                    strLabel10=(object.getString("label10"));
-
+                    JSONObject label2JSONObj=object.getJSONObject("label2");
+                    Iterator<String> iterator2 = label2JSONObj.keys();
+                    while (iterator2.hasNext()) {
+                        String key = iterator2.next();
+                        strLabel2Title=key;
+                        strLabel2=label2JSONObj.optString(key);
+                    }
+                    JSONObject label3JSONObj=object.getJSONObject("label3");
+                    Iterator<String> iterator3 = label3JSONObj.keys();
+                    while (iterator3.hasNext()) {
+                        String key = iterator3.next();
+                        strLabel3Title=key;
+                        strLabel3=label3JSONObj.optString(key);
+                    }
+                    JSONObject label4JSONObj=object.getJSONObject("label4");
+                    Iterator<String> iterator4 = label4JSONObj.keys();
+                    while (iterator4.hasNext()) {
+                        String key = iterator4.next();
+                        strLabel4Title=key;
+                        strLabel4=label4JSONObj.optString(key);
+                    }
+                    JSONObject label5JSONObj=object.getJSONObject("label5");
+                    Iterator<String> iterato5 = label5JSONObj.keys();
+                    while (iterato5.hasNext()) {
+                        String key = iterato5.next();
+                        strLabel5Title=key;
+                        strLabel5=label5JSONObj.optString(key);
+                    }
+                    JSONObject label6JSONObj=object.getJSONObject("label5");
+                    Iterator<String> iterato6 = label6JSONObj.keys();
+                    while (iterato6.hasNext()) {
+                        String key = iterato6.next();
+                        strLabel5Title=key;
+                        strLabel5=label6JSONObj.optString(key);
+                    }
+                    JSONObject label7JSONObj=object.getJSONObject("label5");
+                    Iterator<String> iterato7 = label7JSONObj.keys();
+                    while (iterato7.hasNext()) {
+                        String key = iterato7.next();
+                        strLabel5Title=key;
+                        strLabel5=label7JSONObj.optString(key);
+                    }
+                    JSONObject label8JSONObj=object.getJSONObject("label5");
+                    Iterator<String> iterato8 = label8JSONObj.keys();
+                    while (iterato8.hasNext()) {
+                        String key = iterato8.next();
+                        strLabel5Title=key;
+                        strLabel5=label8JSONObj.optString(key);
+                    }
+                    JSONObject label9JSONObj=object.getJSONObject("label5");
+                    Iterator<String> iterato9 = label9JSONObj.keys();
+                    while (iterato9.hasNext()) {
+                        String key = iterato9.next();
+                        strLabel5Title=key;
+                        strLabel5=label9JSONObj.optString(key);
+                    }
+                    JSONObject label10JSONObj=object.getJSONObject("label5");
+                    Iterator<String> iterato10 = label10JSONObj.keys();
+                    while (iterato10.hasNext()) {
+                        String key = iterato10.next();
+                        strLabel5Title=key;
+                        strLabel5=label10JSONObj.optString(key);
+                    }
+                    if ( strLabel1!=null)
+                    {
+                        tvLabel1.setVisibility(View.VISIBLE);
+                        tvLabel1Title.setVisibility(View.VISIBLE);
+                        tvLabel1Title.setText(strLabel1Title);
+                        tvLabel1.setText(strLabel1);
+                    }
+                    if ( strLabel2!=null)
+                    {
+                        tvLabel2.setVisibility(View.VISIBLE);
+                        tvLabel2Title.setVisibility(View.VISIBLE);
+                        tvLabel2Title.setText(strLabel2Title);
+                        tvLabel2.setText(strLabel2);
+                    }
+                    if ( strLabel3!=null)
+                    {
+                        tvLabel3.setVisibility(View.VISIBLE);
+                        tvLabel3Title.setVisibility(View.VISIBLE);
+                        tvLabel3Title.setText(strLabel3Title);
+                        tvLabel3.setText(strLabel3);
+                    }
+                    if ( strLabel4!=null)
+                    {
+                        tvLabel4.setVisibility(View.VISIBLE);
+                        tvLabel4Title.setVisibility(View.VISIBLE);
+                        tvLabel4Title.setText(strLabel4Title);
+                        tvLabel4.setText(strLabel4);
+                    }
+                    if (strLabel5!=null)
+                    {
+                        tvLabel5.setVisibility(View.VISIBLE);
+                        tvLabel5Title.setVisibility(View.VISIBLE);
+                        tvLabel5Title.setText(strLabel5Title);
+                        tvLabel5.setText(strLabel5);
+                    }
+                    if (strLabel6!=null)
+                    {
+                        tvLabel6.setVisibility(View.VISIBLE);
+                        tvLabel6Title.setVisibility(View.VISIBLE);
+                        tvLabel6Title.setText(strLabel6Title);
+                        tvLabel6.setText(strLabel6);
+                    }
+                    if ( strLabel7!=null)
+                    {
+                        tvLabel7.setVisibility(View.VISIBLE);
+                        tvLabel7Title.setVisibility(View.VISIBLE);
+                        tvLabel7Title.setText(strLabel7Title);
+                        tvLabel7.setText(strLabel7);
+                    }
+                    if ( strLabel8!=null)
+                    {
+                        tvLabel8.setVisibility(View.VISIBLE);
+                        tvLabel8Title.setVisibility(View.VISIBLE);
+                        tvLabel8Title.setText(strLabel8Title);
+                        tvLabel8.setText(strLabel8);
+                    }
+                    if (strLabel9!=null)
+                    {
+                        tvLabel9.setVisibility(View.VISIBLE);
+                        tvLabel9Title.setVisibility(View.VISIBLE);
+                        tvLabel9Title.setText(strLabel9Title);
+                        tvLabel9.setText(strLabel9);
+                    }
+                    if ( strLabel10!=null)
+                    {
+                        tvLabel10.setVisibility(View.VISIBLE);
+                        tvLabel10.setVisibility(View.VISIBLE);
+                        tvLabel10Title.setText(strLabel10Title);
+                        tvLabel10.setText(strLabel10);
+                    }
 
                     JSONObject objectHistory=object.getJSONObject("history");
                     tvLast_taransfered.setText(objectHistory.getString("last_transferd"));

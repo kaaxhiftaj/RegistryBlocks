@@ -120,10 +120,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel1Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label1"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -131,6 +133,7 @@
                     android:id="@+id/tvLabel1"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:text="label1"
                     android:textColor="@color/colorDark"
@@ -141,17 +144,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel2Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label2"
                     android:textColor="#fff"
+                    android:visibility="gone"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
                 <TextView
                     android:id="@+id/tvLabel2"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:text="label2"
                     android:textColor="@color/colorDark"
@@ -162,10 +168,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel3Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label3"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -175,6 +183,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label3"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -183,10 +192,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel4Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label4"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -196,6 +207,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label4"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -204,10 +216,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel5Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label5"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -217,6 +231,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label5"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -225,10 +240,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel6Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label6"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -238,6 +255,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label6"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -246,10 +264,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel7Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label7"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -259,6 +279,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label7"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -267,10 +288,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel8Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label8"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -280,6 +303,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label8"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -288,10 +312,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel9Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label9"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -301,6 +327,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label9"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>
@@ -309,10 +336,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/tvLabel10Title"
                     android:layout_width="0sp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="Label10"
+                    android:visibility="gone"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
@@ -322,6 +351,7 @@
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:text="label10"
+                    android:visibility="gone"
                     android:textColor="@color/colorDark"
                     android:textSize="15sp"/>
             </LinearLayout>

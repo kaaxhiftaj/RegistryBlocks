@@ -93,7 +93,7 @@ public class ResetPass extends Fragment {
                     String abc=jsonObject.getString("message");
                     AlertsUtils.showErrorDialog(getActivity(),abc);
                     Fragment fragment=new Login();
-                    getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -106,6 +106,7 @@ public class ResetPass extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
+                AlertsUtils.showErrorDialog(getActivity(),error.getMessage().toString());
                 Log.d("zma error", String.valueOf(error.getCause()));
             }
         }) {

@@ -77,7 +77,7 @@ public class EnterCode extends Fragment {
                 bundle.putString("code",strCode);
                 Fragment fragment=new ResetPass();
                 fragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
 
             }
         }, new Response.ErrorListener() {
@@ -85,6 +85,7 @@ public class EnterCode extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
+                AlertsUtils.showErrorDialog(getActivity(),error.getMessage().toString());
                 Log.d("zma error", String.valueOf(error.getCause()));
             }
         }) {

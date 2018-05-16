@@ -77,7 +77,7 @@ public class ForgotPass extends Fragment {
             public void onResponse(String response) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
-                Log.d("zmaReg",response);
+                Log.d("zmaForget",response);
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     String abc=jsonObject.getString("message");
@@ -95,6 +95,7 @@ public class ForgotPass extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
+                AlertsUtils.showErrorDialog(getActivity(),error.getMessage().toString());
                 Log.d("zma error", String.valueOf(error.getCause()));
             }
         }) {

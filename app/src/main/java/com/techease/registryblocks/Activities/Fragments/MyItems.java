@@ -90,6 +90,7 @@ public class MyItems extends Fragment {
             alertDialog.show();
         }
         apicall();
+
         return view;
     }
 

@@ -113,31 +113,41 @@ public class Login extends Fragment implements View.OnClickListener {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/login", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (alertDialog!=null)
-                    alertDialog.dismiss();
-                Log.d("zmaReg",response);
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONObject object=jsonObject.getJSONObject("user");
-                    strMessage=jsonObject.getString("message");
-                    strUserId=object.getString("id");
-                    editor.putString("userId",strUserId).commit();
-                    editor.putString("token","login").commit();
-                    if (strMessage.contains("Already"))
-                    {
-                       AlertsUtils.showErrorDialog(getActivity(),strMessage);
-                        etEmail.setText("");
-                        etPass.setText("");
-                    }
-                    else
-                    {
+                if (response.contains("true"))
+                {
+                    if (alertDialog!=null)
+                        alertDialog.dismiss();
+                    Log.d("zmaReg",response);
+                    try {
+                        JSONObject jsonObject=new JSONObject(response);
+                        JSONObject object=jsonObject.getJSONObject("user");
+                        strMessage=jsonObject.getString("message");
+                        strUserId=object.getString("id");
+                        editor.putString("userId",strUserId).commit();
+                        editor.putString("token","login").commit();
                         startActivity(new Intent(getActivity(), BottomNavigationActivity.class));
                         getActivity().finish();
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+                else
+                {
+
+                    if (alertDialog!=null)
+                        alertDialog.dismiss();
+                    try {
+                        JSONObject object=new JSONObject(response);
+                        String message=object.getString("message");
+                        AlertsUtils.showErrorDialog(getActivity(),message);
+                        etEmail.setText("");
+                        etPass.setText("");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
 
 
             }

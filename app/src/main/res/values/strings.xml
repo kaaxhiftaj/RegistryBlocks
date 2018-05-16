@@ -16,5 +16,5 @@
     <string name="title_Myitems">MyItems</string>
     <string name="title_market">Marketplace</string>
     <string name="title_documents">My Documents</string>
-    <string name="item_image_text">Picture were the serial number is clearly visible on the item. Picture of full frontside. Picture of the full backside.</string>
+    <string name="item_image_text" formatted="false">Please upload three pictures which will be used\n to validate your item.\n 1. Picture were the serial number is clearly visible\n 2. Picture of full frontside\n 3. Picture of the full backside.</string>
 </resources>

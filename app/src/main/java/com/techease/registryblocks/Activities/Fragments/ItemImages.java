@@ -1,5 +1,7 @@
 package com.techease.registryblocks.Activities.Fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,11 +24,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.PermissionRequest;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
 import com.techease.registryblocks.Activities.Activities.HTTPMultiPartEntity;
 import com.techease.registryblocks.Activities.Activities.ScannerActivity;
@@ -49,6 +56,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -57,8 +65,8 @@ public class ItemImages extends Fragment implements View.OnClickListener {
 
     ImageView iv1,iv2,iv3,iv1Plus,iv2Plus,iv3Plus;
     Button btnUpload;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_TAKE_PHOTO=2;
+    final int CAMERA_CAPTURE = 1;
+    final int RESULT_LOAD_IMAGE = 2;
     String selectedPath1 ;
     String selectedPath2 ;
     String selectedPath3 ;
@@ -69,9 +77,8 @@ public class ItemImages extends Fragment implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     android.support.v7.app.AlertDialog alertDialog;
-    String userId,ModelNo,SerialNo,checkImage;
+    String userId,ModelNo,SerialNo;
     int a=0,b=0,c=0;
-    final CharSequence[] items = { "Take Photo", "Choose from Library","Cancel" };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,6 +107,25 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         iv2Plus.setOnClickListener(this);
         iv1Plus.setOnClickListener(this);
         btnUpload.setOnClickListener(this);
+
+        Dexter.withActivity(getActivity())
+                .withPermissions(
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                ).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport report) {
+
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<com.karumi.dexter.listener.PermissionRequest> permissions, PermissionToken token) {
+
+            }
+
+        }).check();
         return view;
     }
 
@@ -111,257 +137,127 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         {
             case R.id.iv1Plus:
                 a++;
-               CallALertDilaog();
+               cameraBuilder();
                 break;
             case R.id.iv2Plus:
                 b++;
-                CallALertDilaog();
+                cameraBuilder();
                 break;
             case R.id.iv3Plus:
                 c++;
-                CallALertDilaog();
+                cameraBuilder();
                 break;
             case R.id.btnUpload:
-                if (selectedPath1!=null && selectedPath2!=null && selectedPath3!=null)
+
+                if (alertDialog==null)
                 {
-                    if (alertDialog==null)
-                    {
-                        alertDialog= AlertsUtils.createProgressDialog(getActivity());
-                        alertDialog.show();
-                    }
-                    ItemImages.UploadFileToServer uploadFileToServer=new UploadFileToServer();
-                    uploadFileToServer.execute();
+                    alertDialog= AlertsUtils.createProgressDialog(getActivity());
+                    alertDialog.show();
                 }
-                else
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Uploading failed");
-                    builder.setMessage("Please select all the three images!");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    builder.show();
-                }
+                ItemImages.UploadFileToServer uploadFileToServer=new UploadFileToServer();
+                uploadFileToServer.execute();
+//                if (selectedPath1!=null && selectedPath2!=null && selectedPath3!=null)
+//                {
+//                    if (alertDialog==null)
+//                    {
+//                        alertDialog= AlertsUtils.createProgressDialog(getActivity());
+//                        alertDialog.show();
+//                    }
+//                    ItemImages.UploadFileToServer uploadFileToServer=new UploadFileToServer();
+//                    uploadFileToServer.execute();
+//                }
+//                else
+//                {
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                    builder.setTitle("Uploading failed");
+//                    builder.setMessage("Please select all the three images!");
+//                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.cancel();
+//                        }
+//                    });
+//                    builder.show();
+//                }
 
         }
     }
 
-    public void CallALertDilaog()
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add Photo!");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                if (items[which].equals("Take Photo"))
-                {
-                    callCamera();
-                }
-                else if (items[which].equals("Choose from Library"))
-                {
-                    callGallery();
-                }
-                else if (items[which].equals("Cancel"))
-                {
-
-                    dialog.dismiss();
-                }
-
-            }
-        });
-        builder.show();
+    public void cameraBuilder() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getActivity());
+        pictureDialog.setTitle("Open");
+        String[] pictureDialogItems = {
+                "\tGallery",
+                "\tCamera"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                galleryIntent();
+                                break;
+                            case 1:
+                                cameraIntent();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
     }
-    private void callCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    public void cameraIntent() {
+        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(captureIntent, CAMERA_CAPTURE);
     }
 
-    private void callGallery()
-    {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_PICK);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),REQUEST_TAKE_PHOTO);
+    public void galleryIntent() {
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, RESULT_LOAD_IMAGE);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == RESULT_LOAD_IMAGE && null != data) {
+            Uri selectedImageUri = data.getData();
+            String imagepath = getPath(selectedImageUri);
+            file1 = new File(imagepath);
 
-            onCaptureImageResult(data);
-        }
-        else if (requestCode==REQUEST_TAKE_PHOTO)
-        {
-            onSelectFromGalleryResult(data);
-
-        }
-
-
-
-    }
-
-    private void onCaptureImageResult(Intent data) {
-
-        thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (a>0)
-        {
-            selectedPath1=BitMapToString(thumbnail);
-            if (selectedPath1!=null)
-            {
-                iv1.setImageBitmap(thumbnail);
-                a=0;
-                iv1Plus.setVisibility(View.GONE);
+        } else if (resultCode == RESULT_OK && requestCode == CAMERA_CAPTURE && data != null) {
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+            file1 = new File(Environment.getExternalStorageDirectory(),
+                    System.currentTimeMillis() + ".jpg");
+            FileOutputStream fo;
+            try {
+                file1.createNewFile();
+                fo = new FileOutputStream(file1);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            else
-            {
-                iv1Plus.setVisibility(View.VISIBLE);
-            }
-
-        }
-        else
-            if (b>0)
-            {
-                selectedPath2=BitMapToString(thumbnail);
-                if (selectedPath2!=null)
-                {
-                    iv2.setImageBitmap(thumbnail);
-                    b=0;
-                    iv2Plus.setVisibility(View.GONE);
-                }
-                else
-                {
-                    iv2Plus.setVisibility(View.VISIBLE);
-                }
-
-            }
-            else
-            if (c>0)
-            {
-                selectedPath3=BitMapToString(thumbnail);
-                if (selectedPath3!=null)
-                {
-                    iv3.setImageBitmap(thumbnail);
-                    c=0;
-                    iv3Plus.setVisibility(View.GONE);
-                }
-                else
-                {
-                    iv3Plus.setVisibility(View.VISIBLE);
-                }
-
-            }
-
-    }
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
-    }
-
-    private void onSelectFromGalleryResult(Intent data) {
-        if (data!=null)
-        {
-            uri=data.getData();
-            if (data != null) {
-                try {
-                    bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                    if (uri!=null)
-                    {
-                        String picpath=getPath(uri);
-                        destination=new File(picpath);
-                    }
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), e.getCause().toString(), Toast.LENGTH_SHORT).show();
-                }
-        }
-
-
+            iv1.setImageBitmap(thumbnail);
         }
     }
 
-    private String getPath(Uri uri) {
+    @SuppressLint("SetTextI18n")
+    public String getPath(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(projection[0]);
         String filePath = cursor.getString(columnIndex);
-        if (a>0)
-        {
-            selectedPath1=filePath;
-            if (selectedPath1!=null)
-            {
-                iv1.setImageBitmap(BitmapFactory.decodeFile(filePath));
-                a=0;
-                iv1Plus.setVisibility(View.GONE);
-            }
-            else
-            {
-                iv1Plus.setVisibility(View.VISIBLE);
-            }
-
-        }
-        else
-        if (b>0)
-        {
-            selectedPath2=filePath;
-            if (selectedPath2!=null)
-            {
-                iv2.setImageBitmap(BitmapFactory.decodeFile(filePath));
-                b=0;
-                iv2Plus.setVisibility(View.GONE);
-            }
-              else
-            {
-                iv2Plus.setVisibility(View.VISIBLE);
-            }
-
-        }
-        else
-        if (c>0)
-        {
-            selectedPath3=filePath;
-            if (selectedPath3!=null)
-            {
-                iv3.setImageBitmap(BitmapFactory.decodeFile(filePath));
-                c=0;
-                iv3Plus.setVisibility(View.GONE);
-            }
-            else
-            {
-                iv3Plus.setVisibility(View.VISIBLE);
-            }
-
-        }
-
+        iv1.setImageBitmap(BitmapFactory.decodeFile(filePath));
         return cursor.getString(column_index);
+
     }
+
 
 
     class UploadFileToServer extends AsyncTask<Void, Integer, String> {
@@ -382,9 +278,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
 
         @SuppressWarnings("deprecation")
         private String uploadFile() {
-            file1 = new File(selectedPath1);
-             file2 = new File(selectedPath2);
-            file3 = new File(selectedPath3);
+
             String responseString;
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost("http://rogervaneijk.com/registeryblocks/rest/uploadPicture");
@@ -400,8 +294,8 @@ public class ItemImages extends Fragment implements View.OnClickListener {
                 // Adding file data to http body
                 // Extra parameters if you want to pass to server
                 entity.addPart("file1", new FileBody(file1));
-                entity.addPart("file2", new FileBody(file2));
-                entity.addPart("file3", new FileBody(file3));
+                entity.addPart("file2", new FileBody(file1));
+                entity.addPart("file3", new FileBody(file1));
                 Looper.prepare();
                 entity.addPart("serial", new StringBody(SerialNo));
                 entity.addPart("model", new StringBody(ModelNo));

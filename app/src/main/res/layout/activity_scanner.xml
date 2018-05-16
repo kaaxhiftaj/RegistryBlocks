@@ -136,6 +136,7 @@
                     android:layout_marginLeft="10sp"
                     android:background="@color/colorDark"/>
                 <TextView
+                    android:id="@+id/tvHowToFind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="How to find your serial or model No?"

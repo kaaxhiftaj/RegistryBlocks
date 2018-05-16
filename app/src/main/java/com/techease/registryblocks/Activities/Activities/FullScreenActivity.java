@@ -36,7 +36,7 @@ public class FullScreenActivity extends AppCompatActivity {
         }
         else
         {
-            Fragment fragment=new Registration();
+            Fragment fragment=new Login();
             getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
         }
     }

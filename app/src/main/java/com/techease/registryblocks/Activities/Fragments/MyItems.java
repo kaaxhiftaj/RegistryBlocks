@@ -62,6 +62,7 @@ public class MyItems extends Fragment {
     android.support.v7.app.AlertDialog alertDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    String userId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class MyItems extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("abc", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         setCustomActionBar();
-
+        userId=sharedPreferences.getString("userId","");
         gridView=(GridView) view.findViewById(R.id.gridViewMyItems);
         searchView=(EditText) view.findViewById(R.id.sv);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -125,7 +126,7 @@ public class MyItems extends Fragment {
 
     }
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://openspot.qa/registeryblocks/rest/allproducts", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/allproducts", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)
@@ -170,6 +171,7 @@ public class MyItems extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("userid",userId);
                 return params;
             }
         };

@@ -39,7 +39,7 @@ import java.util.Map;
 
 public class Login extends Fragment implements View.OnClickListener {
 
-    TextView tvNoAccount;
+    TextView tvNoAccount,tvForgot;
     EditText etEmail,etPass;
     Button btnLogin;
     String strEmail,strPass,strUserId,strMessage;
@@ -58,11 +58,13 @@ public class Login extends Fragment implements View.OnClickListener {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         tvNoAccount=(TextView)view.findViewById(R.id.tvNoAccount);
+        tvForgot=(TextView)view.findViewById(R.id.tvForgot);
         etEmail=(EditText)view.findViewById(R.id.etEmailIn);
         etPass=(EditText)view.findViewById(R.id.etPassIn);
         btnLogin=(Button)view.findViewById(R.id.btnLogin);
         
         tvNoAccount.setOnClickListener(this);
+        tvForgot.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         return view;
     }
@@ -72,10 +74,13 @@ public class Login extends Fragment implements View.OnClickListener {
         int id=v.getId();
         switch (id)
         {
-            case R.id.tvNoAccount:
+            case R.id.tvForgot:
                 Fragment fragment=new ForgotPass();
                 getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Login").commit();
                 break;
+            case R.id.tvNoAccount:
+                Fragment fragment2=new Registration();
+                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment2).addToBackStack("Login").commit();
             case R.id.btnLogin:
                 check();
         }
@@ -105,7 +110,7 @@ public class Login extends Fragment implements View.OnClickListener {
     }
 
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://openspot.qa/registeryblocks/rest/register", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/login", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)

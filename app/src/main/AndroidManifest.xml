@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
@@ -16,29 +17,28 @@
         android:name="android.hardware.nfc"
         android:required="true" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:windowSoftInputMode="stateAlwaysHidden"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.techease.registryblocks.Activities.Activities.SplashActivity">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateAlwaysHidden">
+        <activity android:name=".Activities.Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name="com.techease.registryblocks.Activities.Activities.FullScreenActivity" />
+        <activity android:name=".Activities.Activities.FullScreenActivity" />
         <activity
-            android:name="com.techease.registryblocks.Activities.Activities.BottomNavigationActivity"
+            android:name=".Activities.Activities.BottomNavigationActivity"
             android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name="com.techease.registryblocks.Activities.Activities.ScannerActivity" />
-        <activity android:name="com.techease.registryblocks.Activities.Activities.NFC"></activity>
+        <activity android:name=".Activities.Activities.ScannerActivity" />
+        <activity android:name=".Activities.Activities.NFC" />
+        <activity android:name=".Activities.Activities.WebActivity"></activity>
     </application>
 
 </manifest>

@@ -20,9 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +42,7 @@ import com.techease.registryblocks.Activities.Fragments.MyItems;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 import com.techease.registryblocks.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,10 +61,11 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     EditText etSerialNo,etModelNo;
     private ZXingScannerView scannerView;
     Button btnScan,btnRegister;
-    String strSerialNo,strModelNo;
+    String strSerialNo,strModelNo,storeSerialNo,storeModelNo;
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
+    SharedPreferences.Editor editor;
+    TextView tvHowToFindSerialNo;
     android.support.v7.app.AlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         setCustomActionBar();
         btnScan=(Button)findViewById(R.id.btnScan);
 
+
+        tvHowToFindSerialNo=(TextView)findViewById(R.id.tvHowToFind);
         etModelNo=(EditText)findViewById(R.id.etModelNo);
         etSerialNo=(EditText)findViewById(R.id.etSerialNo);
         btnRegister=(Button)findViewById(R.id.btnRegister);
@@ -86,12 +92,24 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+
+
+        tvHowToFindSerialNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ScannerActivity.this,WebActivity.class));
+            }
+        });
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Fragment fragment=new ItemImages();
-                getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
+                if (alertDialog==null)
+                {
+                    alertDialog= AlertsUtils.createProgressDialog(ScannerActivity.this);
+                    alertDialog.show();
+                }
+                apiCallForSerialNo();
 //                setContentView(scannerView);
 //                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M)
 //                {
@@ -116,6 +134,74 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
 
     }
+
+    private void apiCallForSerialNo() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://rogervaneijk.com/registeryblocks/rest/randomProduct", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (alertDialog!=null)
+                    alertDialog.dismiss();
+                Log.d("zmaResp",response);
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    JSONObject object=jsonObject.getJSONObject("data");
+                    storeModelNo=object.getString("model_number");
+                    storeSerialNo=object.getString("serial_number");
+
+                    editor.putString("serial",storeSerialNo).commit();
+                    editor.putString("model",storeModelNo).commit();
+
+                    Fragment fragment=new ItemImages();
+                    getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
+//                   if(storeSerialNo!=null)
+//                   {
+//
+//
+//                   }
+//                   else
+//                   {
+//                       AlertsUtils.showErrorDialog(ScannerActivity.this,"Not recognized, please check and try again.");
+//
+//                   }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (alertDialog!=null)
+                    alertDialog.dismiss();
+                AlertsUtils.showErrorDialog(ScannerActivity.this,error.getMessage().toString());
+                Log.d("zma error", String.valueOf(error.getCause()));
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded;charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                return params;
+            }
+        };
+
+        RequestQueue mRequestQueue = Volley.newRequestQueue(ScannerActivity.this);
+        stringRequest.setRetryPolicy(new
+                DefaultRetryPolicy(200000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        mRequestQueue.add(stringRequest);
+    }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(ScannerActivity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -151,14 +237,29 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     }
 
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://registryblocks.com/app/rest/registerProduct", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/registerProduct", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String message=jsonObject.getString("message");
+                    if (message.contains("not"))
+                    {
+                        AlertsUtils.showErrorDialog(ScannerActivity.this,message);
+                    }
+                    else
+                    {
+                        Fragment fragment=new ItemImages();
+                        getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                Fragment fragment=new ItemImages();
-                getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
+
+
 
 
             }
@@ -322,8 +423,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment=new MyItems();
-                getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).commit();
+
+                startActivity(new Intent(ScannerActivity.this,FullScreenActivity.class));
             }
         });
         mActionBar.setCustomView(mCustomView);

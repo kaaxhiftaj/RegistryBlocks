@@ -394,7 +394,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
             file3 = new File(selectedPath3);
             String responseString;
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://openspot.qa/registeryblocks/uploadPicture");
+            HttpPost httppost = new HttpPost("http://rogervaneijk.com/registeryblocks/rest/uploadPicture");
             try {
                 HTTPMultiPartEntity entity = new HTTPMultiPartEntity(
                         new HTTPMultiPartEntity.ProgressListener() {
@@ -413,6 +413,9 @@ public class ItemImages extends Fragment implements View.OnClickListener {
                 entity.addPart("serial", new StringBody(SerialNo));
                 entity.addPart("model", new StringBody(ModelNo));
                 entity.addPart("userid", new StringBody(userId));
+
+                Log.d("model",ModelNo);
+                Log.d("serial",SerialNo);
 
 
                 httppost.setEntity(entity);
@@ -468,6 +471,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getActivity(),ScannerActivity.class));
                 getActivity().finish();
             }

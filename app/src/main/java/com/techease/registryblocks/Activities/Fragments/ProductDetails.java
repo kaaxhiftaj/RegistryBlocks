@@ -97,7 +97,7 @@ public class ProductDetails extends Fragment {
     }
 
     private void apiCall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://openspot.qa/registeryblocks/rest/productDetails", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/productDetails", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)

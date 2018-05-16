@@ -16,5 +16,5 @@
     <string name="title_Myitems">MyItems</string>
     <string name="title_market">Marketplace</string>
     <string name="title_documents">My Documents</string>
-    <string name="item_image_text">Upload images of your item to get more buyers.\nYou can upload min one and max three images of your item.</string>
+    <string name="item_image_text">Picture were the serial number is clearly visible on the item. Picture of full frontside. Picture of the full backside.</string>
 </resources>

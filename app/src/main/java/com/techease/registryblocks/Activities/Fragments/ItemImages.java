@@ -149,13 +149,6 @@ public class ItemImages extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void CallHttp() {
-        File file1 = new File(selectedPath1);
-        File file2 = new File(selectedPath2);
-        File file3 = new File(selectedPath3);
-        String urlString = "http://techeasesol.com/pos_app/pos_apis/insert_job_completed_images";
-    }
-
     public void CallALertDilaog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -432,7 +425,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
 
             } catch (IOException e) {
                 responseString = e.toString();
-                Log.d("zmaIo", e.getCause().toString());
+                Log.d("zmaIo", responseString);
             }
 
             Log.d("zma return string", responseString);
@@ -446,7 +439,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
             if (alertDialog!=null)
                 alertDialog.dismiss();
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Uploaded Successfully!");
+            builder.setMessage(s);
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -1,7 +1,5 @@
 package com.techease.registryblocks.Activities.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -23,12 +20,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.techease.registryblocks.Activities.Adapters.AllProductsAdapter;
-import com.techease.registryblocks.Activities.Controller.AllProductsModel;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 import com.techease.registryblocks.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +31,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-public class ProductDetails extends Fragment {
+public class ProductDetailsFragment extends Fragment {
 
     ImageView ivImage;
     TextView tvTitle,tvModel,tvSerial,tvRegistration,tvLast_taransfered,insurance,tvLabel10,tvLabel1,tvLabel2,
@@ -304,7 +298,7 @@ public class ProductDetails extends Fragment {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment=new MyItems();
+                Fragment fragment=new MyItemsFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
             }
         });

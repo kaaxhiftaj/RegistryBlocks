@@ -1,7 +1,5 @@
 package com.techease.registryblocks.Activities.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -19,65 +17,83 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 import com.techease.registryblocks.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class EnterCode extends Fragment {
+public class ResetPassFragment extends Fragment {
 
-    EditText etCode;
-    Button btnSend;
-    String strCode;
+    EditText etEmail,etCEmail;
+    Button btnReset;
+    String strEmail,strConfirm,code;
     android.support.v7.app.AlertDialog alertDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_enter_code, container, false);
+        View view= inflater.inflate(R.layout.fragment_reset_pass, container, false);
 
-        etCode=(EditText)view.findViewById(R.id.etCode);
-        btnSend=(Button)view.findViewById(R.id.btnSendCode);
-
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        code=getArguments().getString("code");
+        etEmail=(EditText)view.findViewById(R.id.etNewPass);
+        etCEmail=(EditText)view.findViewById(R.id.etConfirm);
+        btnReset=(Button)view.findViewById(R.id.btnReset);
+        
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                strCode=etCode.getText().toString();
-                if (strCode.equals(""))
-                {
-                    etCode.setError("Required");
-                }
-                else
-                {
-                    if (alertDialog==null)
-                    {
-                        alertDialog= AlertsUtils.createProgressDialog(getActivity());
-                        alertDialog.show();
-                    }
-                    apicall();
-                }
+                check();
             }
         });
         return view;
     }
 
-    private void apicall() {
+    private void check() {
+        strEmail=etEmail.getText().toString();
+        strConfirm=etCEmail.getText().toString();
+        if (strEmail.equals(""))
+        {
+            etEmail.setError("Required");
+        }
+        else 
+            if (strConfirm.equals(" ") && !strEmail.equals(strConfirm))
+            {
+                etCEmail.setError("Password does not match");
+            }
+            else 
+            {
+                if (alertDialog==null)
+                {
+                    alertDialog= AlertsUtils.createProgressDialog(getActivity());
+                    alertDialog.show();
+                }
+                apicall();
+            }
+    }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/verifycode", new Response.Listener<String>() {
+    private void apicall() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/resetpassword", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)
                     alertDialog.dismiss();
                 Log.d("zmaReg",response);
-                Bundle bundle=new Bundle();
-                bundle.putString("code",strCode);
-                Fragment fragment=new ResetPass();
-                fragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String abc=jsonObject.getString("message");
+                    AlertsUtils.showErrorDialog(getActivity(),abc);
+                    Fragment fragment=new LoginFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
 
             }
         }, new Response.ErrorListener() {
@@ -97,7 +113,8 @@ public class EnterCode extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("email",strCode);
+                params.put("password",strConfirm);
+                params.put("code",code);
                 return params;
             }
         };
@@ -109,5 +126,4 @@ public class EnterCode extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         mRequestQueue.add(stringRequest);
     }
-
 }

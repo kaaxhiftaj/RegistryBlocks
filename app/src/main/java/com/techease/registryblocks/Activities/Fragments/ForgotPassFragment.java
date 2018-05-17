@@ -1,19 +1,13 @@
 package com.techease.registryblocks.Activities.Fragments;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -23,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 import com.techease.registryblocks.R;
 
@@ -34,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ForgotPass extends Fragment {
+public class ForgotPassFragment extends Fragment {
 
     Button btnSend;
     EditText etEmail;
@@ -86,7 +79,7 @@ public class ForgotPass extends Fragment {
                     e.printStackTrace();
                 }
 
-                Fragment fragment=new EnterCode();
+                Fragment fragment=new EnterCodeFragment();
                 getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Forgot").commit();
 
             }

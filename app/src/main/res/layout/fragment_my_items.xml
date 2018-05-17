@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#fff"
-    tools:context="com.techease.registryblocks.Activities.Fragments.MyItems">
+    tools:context="com.techease.registryblocks.Activities.Fragments.MyItemsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

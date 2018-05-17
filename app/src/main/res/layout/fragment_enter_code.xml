@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/backimg"
-    tools:context="com.techease.registryblocks.Activities.Fragments.EnterCode">
+    tools:context="com.techease.registryblocks.Activities.Fragments.EnterCodeFragment">
 
    <ImageView
        android:layout_width="80sp"
        android:layout_height="80sp"
        android:layout_gravity="center"
        android:layout_marginTop="20sp"
-       android:src="@drawable/logo"/>
+       android:src="@drawable/shinelogo"/>
 
 <TextView
     android:layout_width="wrap_content"

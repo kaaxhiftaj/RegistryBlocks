@@ -10,8 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-import com.techease.registryblocks.Activities.Fragments.Login;
-import com.techease.registryblocks.Activities.Fragments.Registration;
+import com.techease.registryblocks.Activities.Fragments.LoginFragment;
 import com.techease.registryblocks.R;
 
 public class FullScreenActivity extends AppCompatActivity {
@@ -36,7 +35,7 @@ public class FullScreenActivity extends AppCompatActivity {
         }
         else
         {
-            Fragment fragment=new Login();
+            Fragment fragment=new LoginFragment();
             getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
         }
     }

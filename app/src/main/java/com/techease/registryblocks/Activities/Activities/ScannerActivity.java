@@ -1,6 +1,5 @@
 package com.techease.registryblocks.Activities.Activities;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -20,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -37,23 +35,19 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.google.zxing.Result;
-import com.techease.registryblocks.Activities.Fragments.ItemImages;
-import com.techease.registryblocks.Activities.Fragments.MyItems;
+import com.techease.registryblocks.Activities.Fragments.ItemImagesFragment;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 import com.techease.registryblocks.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission.CAMERA;
-import static android.content.Intent.ACTION_VIEW;
 
 public class ScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler{
 
@@ -151,7 +145,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                     editor.putString("serial",storeSerialNo).commit();
                     editor.putString("model",storeModelNo).commit();
 
-                    Fragment fragment=new ItemImages();
+                    Fragment fragment=new ItemImagesFragment();
                     getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
 //                   if(storeSerialNo!=null)
 //                   {
@@ -251,7 +245,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                     }
                     else
                     {
-                        Fragment fragment=new ItemImages();
+                        Fragment fragment=new ItemImagesFragment();
                         getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
                     }
                 } catch (JSONException e) {

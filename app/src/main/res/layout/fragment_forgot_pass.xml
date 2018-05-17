@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/backimg"
-    tools:context="com.techease.registryblocks.Activities.Fragments.ForgotPass">
+    tools:context="com.techease.registryblocks.Activities.Fragments.ForgotPassFragment">
 
 <ImageView
     android:layout_width="80sp"
     android:layout_height="80sp"
     android:layout_gravity="center"
     android:layout_marginTop="20sp"
-    android:src="@drawable/logo"/>
+    android:src="@drawable/shinelogo"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

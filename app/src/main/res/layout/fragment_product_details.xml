@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context="com.techease.registryblocks.Activities.Fragments.ProductDetails">
+    tools:context="com.techease.registryblocks.Activities.Fragments.ProductDetailsFragment">
 
     <ImageView
         android:id="@+id/ivImageProductDetail"

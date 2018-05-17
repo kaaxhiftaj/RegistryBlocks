@@ -8,13 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.techease.registryblocks.Activities.Fragments.MyItems;
+import com.techease.registryblocks.Activities.Fragments.MyItemsFragment;
 import com.techease.registryblocks.R;
 
 public class BottomNavigationActivity extends AppCompatActivity {
@@ -29,7 +26,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_items:
-                fragment=new MyItems();
+                fragment=new MyItemsFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
                     return true;
                 case R.id.navigation_market:
@@ -53,7 +50,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences("abc", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        fragment=new MyItems();
+        fragment=new MyItemsFragment();
         getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

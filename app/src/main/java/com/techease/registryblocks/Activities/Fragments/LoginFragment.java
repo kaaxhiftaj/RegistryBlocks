@@ -1,13 +1,10 @@
 package com.techease.registryblocks.Activities.Fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -37,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Login extends Fragment implements View.OnClickListener {
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
     TextView tvNoAccount,tvForgot;
     EditText etEmail,etPass;
@@ -75,12 +71,12 @@ public class Login extends Fragment implements View.OnClickListener {
         switch (id)
         {
             case R.id.tvForgot:
-                Fragment fragment=new ForgotPass();
-                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Login").commit();
+                Fragment fragment=new ForgotPassFragment();
+                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("LoginFragment").commit();
                 break;
             case R.id.tvNoAccount:
-                Fragment fragment2=new Registration();
-                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment2).addToBackStack("Login").commit();
+                Fragment fragment2=new RegistrationFragment();
+                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment2).addToBackStack("LoginFragment").commit();
             case R.id.btnLogin:
                 check();
         }

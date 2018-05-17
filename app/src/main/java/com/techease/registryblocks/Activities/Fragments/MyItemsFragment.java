@@ -52,7 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyItems extends Fragment {
+public class MyItemsFragment extends Fragment {
 
     private EditText searchView;
     GridView gridView;

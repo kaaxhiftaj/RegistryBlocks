@@ -1,17 +1,17 @@
 package com.techease.registryblocks.Activities.Fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.net.Uri;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.techease.registryblocks.Activities.Activities.BottomNavigationActivity;
 import com.techease.registryblocks.Activities.Utils.AlertsUtils;
 import com.techease.registryblocks.R;
 
@@ -32,45 +33,62 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ResetPass extends Fragment {
+public class RegistrationFragment extends Fragment implements View.OnClickListener {
 
-    EditText etEmail,etCEmail;
-    Button btnReset;
-    String strEmail,strConfirm,code;
+    TextView tvForgot;
+    EditText etEmail,etPass;
+    String strEmail,strPass,strUserId,strMessage;
+    Button btnSignUp;
+    Fragment fragment;
     android.support.v7.app.AlertDialog alertDialog;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_reset_pass, container, false);
+        View view = inflater.inflate(R.layout.fragment_registration, container, false);
 
-        code=getArguments().getString("code");
-        etEmail=(EditText)view.findViewById(R.id.etNewPass);
-        etCEmail=(EditText)view.findViewById(R.id.etConfirm);
-        btnReset=(Button)view.findViewById(R.id.btnReset);
-        
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                check();
-            }
-        });
+        sharedPreferences = getActivity().getSharedPreferences("abc", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        tvForgot=(TextView)view.findViewById(R.id.tvAlreadyHaveAnAccount);
+        etEmail=(EditText)view.findViewById(R.id.etEmailReg);
+        etPass=(EditText)view.findViewById(R.id.etPassReg);
+        btnSignUp=(Button)view.findViewById(R.id.btnSignUp);
+
+        tvForgot.setOnClickListener(this);
+        btnSignUp.setOnClickListener(this);
         return view;
     }
-
+    @Override
+    public void onClick(View v) {
+        int id=v.getId();
+        switch (id)
+        {
+            case R.id.tvAlreadyHaveAnAccount:
+                fragment=new LoginFragment();
+                getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).addToBackStack("Registrations").commit();
+                break;
+            case R.id.btnSignUp:
+                check();
+                break;
+        }
+    }
     private void check() {
         strEmail=etEmail.getText().toString();
-        strConfirm=etCEmail.getText().toString();
-        if (strEmail.equals(""))
+        strPass=etPass.getText().toString();
+        if (strEmail.equals("")&& !strEmail.contains("@"))
         {
             etEmail.setError("Required");
         }
-        else 
-            if (strConfirm.equals(" ") && !strEmail.equals(strConfirm))
+        else
+            if (strPass.equals(""))
             {
-                etCEmail.setError("Password does not match");
+                etPass.setError("Required");
             }
-            else 
+            else
             {
                 if (alertDialog==null)
                 {
@@ -82,7 +100,7 @@ public class ResetPass extends Fragment {
     }
 
     private void apicall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/resetpassword", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://rogervaneijk.com/registeryblocks/rest/register", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (alertDialog!=null)
@@ -90,16 +108,25 @@ public class ResetPass extends Fragment {
                 Log.d("zmaReg",response);
                 try {
                     JSONObject jsonObject=new JSONObject(response);
-                    String abc=jsonObject.getString("message");
-                    AlertsUtils.showErrorDialog(getActivity(),abc);
-                    Fragment fragment=new Login();
-                    getFragmentManager().beginTransaction().replace(R.id.mainContainer,fragment).commit();
+                    JSONObject object=jsonObject.getJSONObject("user");
+                    strMessage=jsonObject.getString("message");
+                    strUserId=object.getString("id");
+                    editor.putString("token","login").commit();
+                    Toast.makeText(getActivity(), strMessage, Toast.LENGTH_SHORT).show();
+                    if (strMessage.contains("Already"))
+                    {
+                        AlertsUtils.showErrorDialog(getActivity(),strMessage);
+                        etEmail.setText("");
+                        etPass.setText("");
+                    }
+                    else
+                    {
+                        startActivity(new Intent(getActivity(), BottomNavigationActivity.class));
+                        getActivity().finish();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -118,8 +145,8 @@ public class ResetPass extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("password",strConfirm);
-                params.put("code",code);
+                params.put("email",strEmail);
+                params.put("password",strPass);
                 return params;
             }
         };

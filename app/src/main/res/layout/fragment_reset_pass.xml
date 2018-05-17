@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backimg"
-    tools:context="com.techease.registryblocks.Activities.Fragments.ResetPass">
+    tools:context="com.techease.registryblocks.Activities.Fragments.ResetPassFragment">
 
     <ImageView
         android:layout_width="80sp"
@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/shinelogo" />
 
     <TextView
         android:layout_width="wrap_content"

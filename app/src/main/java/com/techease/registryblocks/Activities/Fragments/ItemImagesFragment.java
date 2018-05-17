@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,16 +18,13 @@ import android.provider.MediaStore;
 import android.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.PermissionRequest;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -45,7 +41,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -61,7 +56,7 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 
 
-public class ItemImages extends Fragment implements View.OnClickListener {
+public class ItemImagesFragment extends Fragment implements View.OnClickListener {
 
     ImageView iv1,iv2,iv3,iv1Plus,iv2Plus,iv3Plus;
     Button btnUpload;
@@ -152,7 +147,7 @@ public class ItemImages extends Fragment implements View.OnClickListener {
                         alertDialog= AlertsUtils.createProgressDialog(getActivity());
                         alertDialog.show();
                     }
-                    ItemImages.UploadFileToServer uploadFileToServer=new UploadFileToServer();
+                    ItemImagesFragment.UploadFileToServer uploadFileToServer=new UploadFileToServer();
                     uploadFileToServer.execute();
                 }
                 else

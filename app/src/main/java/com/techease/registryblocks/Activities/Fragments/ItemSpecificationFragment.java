@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.techease.registryblocks.R;
 
 
-public class ItemSpecification extends Fragment {
+public class ItemSpecificationFragment extends Fragment {
 
 
     @Override

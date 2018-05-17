@@ -399,23 +399,32 @@ public class ItemImagesFragment extends Fragment implements View.OnClickListener
             if (alertDialog!=null)
                 alertDialog.dismiss();
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            if (s.contains("success"))
+            if (s.contains("true"))
             {
                 builder.setMessage("Uploaded successfully!");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        startActivity(new Intent(getActivity(), BottomNavigationActivity.class));
+                        getActivity().finish();
+                    }
+                });
+                builder.show();
             }
             else
             {
                 builder.setMessage(s);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+
+                    }
+                });
+                builder.show();
             }
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                   startActivity(new Intent(getActivity(), BottomNavigationActivity.class));
-                   getActivity().finish();
-                }
-            });
-            builder.show();
+
         }
     }
 

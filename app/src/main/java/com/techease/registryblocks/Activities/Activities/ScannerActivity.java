@@ -144,22 +144,22 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
                     editor.putString("serial",storeSerialNo).commit();
                     editor.putString("model",storeModelNo).commit();
+                    String success=jsonObject.getString("success");
+                    String message=jsonObject.getString("message");
+                    if (success.equals("true"))
+                    {
+                        Fragment fragment=new ItemImagesFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
 
-                    Fragment fragment=new ItemImagesFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.scannerActivityContainer,fragment).addToBackStack("abc").commit();
-//                   if(storeSerialNo!=null)
-//                   {
-//
-//
-//                   }
-//                   else
-//                   {
-//                       AlertsUtils.showErrorDialog(ScannerActivity.this,"Not recognized, please check and try again.");
-//
-//                   }
+                    }
+                    else
+                    {
+                        AlertsUtils.showErrorDialog(ScannerActivity.this,message);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    AlertsUtils.showErrorDialog(ScannerActivity.this,e.getMessage().toString());
                 }
 
 
